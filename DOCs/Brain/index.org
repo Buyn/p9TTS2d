@@ -1,4 +1,4 @@
-#+BRAIN_FRIENDS: main.py%20org%20file board.py%20org%20file game.py%20org%20file gconstants.py%20org%20file card-game gamelement.py%20org
+#+BRAIN_FRIENDS: main.py%20org%20file board.py%20org%20file game.py%20org%20file gconstants.py%20org%20file card-game gamelement.py%20org Card.py%20class%20org
 
 #+BRAIN_CHILDREN: List%20of%20exempls p9tts2d%20app%20start
 

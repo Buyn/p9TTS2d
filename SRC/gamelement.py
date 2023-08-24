@@ -14,10 +14,10 @@ class Gamelement(arcade.Sprite):
         """ Game element constructor """
         # should be the default value for objects
         # image_file_name = f":resources:images/cards/card{self.suit}{self.value}.png"
+        super().__init__(image_file_name, scale, hit_box_algorithm=hit_box_algorithm)
         self.keeper = keeper
         self.add_to_draw()
         # Call the parent
-        super().__init__(image_file_name, scale, hit_box_algorithm=hit_box_algorithm)
 
     def add_to_draw(self):
         self.keeper.add_to_draw(self)

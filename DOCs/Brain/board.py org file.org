@@ -46,6 +46,7 @@ p2tts2d game.
 ** import
 #+begin_src python
 from gconstants import *
+from card import Card
 import arcade
 
 
@@ -62,16 +63,35 @@ class Board(arcade.Window):
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
         self.game = _game
         arcade.set_background_color(BOARD_BACKGROUND_COLOR)
+        # Game elements list with all the elements, no matter what pile they are in.
+        self.elements_list = arcade.SpriteList()
         
 #+end_src
 
 *** def setup : 
+        # self.sprites_list = None
+        # self.sprites_list = arcade.SpriteList()
 #+begin_src python
     def setup(self):
         """ Set up the game here. Call this function to restart the game. """
-        pass
+        # Sprite list with all the cards, no matter what pile they are in.
+        self.elements_list = None
+        self.elements_list = arcade.SpriteList()
+        # Create every card
+        count=0
+        for card_suit in CARD_SUITS:
+            for card_value in CARD_VALUES:
+                count +=1
+                card = Card(self,
+                            card_suit,
+                            card_value,
+                            x=START_X+count,
+                            y=BOTTOM_Y+count)
 
 #+end_src
+                # card.position = START_X, BOTTOM_Y
+                # self.elements_list.append(card)
+                # card.add_to_draw(START_X, BOTTOM_Y)
 
 *** def on_draw : 
 #+begin_src python
@@ -79,21 +99,24 @@ class Board(arcade.Window):
         """ Render the screen. """
         # Clear the screen
         self.clear()
+        # Draw the elements
+        self.elements_list.draw()
 
 #+end_src
 *** def add_to_draw : 
-				# self.keeper.add_to_draw(self)
+        # self.keeper.add_to_draw(self)
 #+begin_src python
     def add_to_draw(self, sprite):
         """ add to list of sprits to draw on screen """
-				self.elements_list.append(sprite)
+        self.elements_list.append(sprite)
 
 #+end_src
 *** def remove_from_draw : 
-				# self.keeper.remove_from_draw(self)
+        # self.keeper.remove_from_draw(self)
 #+begin_src python
     def remove_from_draw(self, sprite):
-				self.elements_list.remove(sprite)
+        """ remove from list sprits to draw on screen """
+        self.elements_list.remove(sprite)
 
 #+end_src
 *** def on_mouse_press : 

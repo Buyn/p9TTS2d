@@ -1,0 +1,80 @@
+#+BRAIN_FRIENDS: index
+
+#+BRAIN_PARENTS: gamelement.py%20org
+
+
+* Command 
+** execute-src-block : 
+(save-excursion (progn (org-babel-goto-named-src-block "auto-tangle-block") (org-babel-execute-src-block)))
+(save-excursion (let () (org-babel-goto-named-src-block "auto-tangle-block") (org-babel-execute-src-block)))
+and then name the block you want to execute automatically:
+
+** find-file : 
+[[elisp:(org-babel-tangle)]]
+(find-file-other-frame "D:/Development/version-control/GitHub/my-python/pytts2d/SRC/card.py")
+(org-babel-tangle)
+"D:\Development\version-control\GitHub\My-python\pytts2d\DOCs\Brain\card.py org.org" 
+
+f D:\Development\version-control\GitHub\My-python\pytts2d\SRC\ D:\Development\version-control\GitHub\My-python\pytts2d\Exmpls\cardgame\
+
+D:\Development\version-control\GitHub\My-python\pytts2d\Exmpls\cardgame\cardgame.py 
+python -m D:\Development\version-control\GitHub\My-python\pytts2d\Exmpls\cardgame\cardgame.py 
+
+** auto-tangle-block : 
+#+NAME: auto-tangle-block
+#+begin_src emacs-lisp :results output silent :tangle no
+(setq org-src-preserve-indentation t)
+(untabify (point-min) (point-max))
+(save-buffer)
+(org-babel-tangle)
+(find-file-other-frame "D:/Development/version-control/GitHub/my-python/pytts2d/SRC/card.py")
+;; (load "~/INI/hydra-cfg.el")
+;; (load "~/ELs/BuYn/reader.el")
+ #+end_src
+
+* Start Source
+:PROPERTIES:
+:header-args: :tangle  "D:/Development/version-control/GitHub/my-python/pytts2d/SRC/card.py"
+:END:
+** start comment
+#+begin_src python 
+"""
+p2tts2d game.
+Card sprite Game element class
+2023-08-24
+"""
+
+#+end_src
+** import
+#+begin_src python
+from gconstants import *
+import arcade
+from gamelement import Gamelement
+
+
+#+end_src
+** class Card() Window application class.
+*** class Card : 
+#+begin_src python
+class Card(Gamelement):
+    """ Card sprite game element """
+
+#+end_src
+*** def __init__
+#+begin_src python
+    """ Card sprite game element """
+    def __init__(self, keeper, suit, value, scale=1, x=START_X, y=BOTTOM_Y):
+        """ Card constructor """
+        # Attributes for suit and value
+        self.suit = suit
+        self.value = value
+        # Image to use for the sprite when face up
+        self.image_file_name = f":resources:images/cards/card{self.suit}{self.value}.png"
+        # Call the parent
+        super().__init__(keeper, self.image_file_name)
+        self.position = x, y
+        
+#+end_src
+        # super().__init__(self.image_file_name, scale, hit_box_algorithm="None")
+
+* описание
