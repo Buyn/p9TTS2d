@@ -1,0 +1,120 @@
+#+BRAIN_CHILDREN: gamelement.py%20org
+
+#+BRAIN_FRIENDS: index
+
+#+BRAIN_PARENTS: main.py%20org%20file
+
+
+* Command 
+** execute-src-block : 
+(save-excursion (progn (org-babel-goto-named-src-block "auto-tangle-block") (org-babel-execute-src-block)))
+(save-excursion (let () (org-babel-goto-named-src-block "auto-tangle-block") (org-babel-execute-src-block)))
+and then name the block you want to execute automatically:
+
+** find-file : 
+[[elisp:(org-babel-tangle)]]
+(find-file-other-frame "D:/Development/version-control/GitHub/my-python/pytts2d/SRC/board.py")
+(org-babel-tangle)
+"D:\Development\version-control\GitHub\My-python\pytts2d\DOCs\Brain\List of exempls.org" 
+
+f D:\Development\version-control\GitHub\My-python\pytts2d\Exmpls\cardgame\
+D:\Development\version-control\GitHub\My-python\pytts2d\Exmpls\cardgame\cardgame.py 
+python -m D:\Development\version-control\GitHub\My-python\pytts2d\Exmpls\cardgame\cardgame.py 
+
+** auto-tangle-block : 
+#+NAME: auto-tangle-block
+#+begin_src emacs-lisp :results output silent :tangle no
+(setq org-src-preserve-indentation t)
+(untabify (point-min) (point-max))
+(save-buffer)
+(org-babel-tangle)
+(find-file-other-frame "D:/Development/version-control/GitHub/my-python/pytts2d/SRC/board.py")
+;; (load "~/INI/hydra-cfg.el")
+;; (load "~/ELs/BuYn/reader.el")
+ #+end_src
+
+* Start Source
+:PROPERTIES:
+:header-args: :tangle  "D:/Development/version-control/GitHub/my-python/pytts2d/SRC/board.py"
+:END:
+** start comment
+#+begin_src python 
+"""
+p2tts2d game.
+"""
+#+end_src
+** import
+#+begin_src python
+from gconstants import *
+import arcade
+
+
+#+end_src
+** class Board() Window application class.
+*** class Board : 
+#+begin_src python
+class Board(arcade.Window):
+    """ Window application class. """
+#+end_src
+*** def __init__
+#+begin_src python
+    def __init__(self, _game):
+        super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
+        self.game = _game
+        arcade.set_background_color(BOARD_BACKGROUND_COLOR)
+        
+#+end_src
+
+*** def setup : 
+#+begin_src python
+    def setup(self):
+        """ Set up the game here. Call this function to restart the game. """
+        pass
+
+#+end_src
+
+*** def on_draw : 
+#+begin_src python
+    def on_draw(self):
+        """ Render the screen. """
+        # Clear the screen
+        self.clear()
+
+#+end_src
+*** def add_to_draw : 
+				# self.keeper.add_to_draw(self)
+#+begin_src python
+    def add_to_draw(self, sprite):
+        """ add to list of sprits to draw on screen """
+				self.elements_list.append(sprite)
+
+#+end_src
+*** def remove_from_draw : 
+				# self.keeper.remove_from_draw(self)
+#+begin_src python
+    def remove_from_draw(self, sprite):
+				self.elements_list.remove(sprite)
+
+#+end_src
+*** def on_mouse_press : 
+#+begin_src python
+    def on_mouse_press(self, x, y, button, key_modifiers):
+        """ Called when the user presses a mouse button. """
+        pass
+
+#+end_src
+*** def on_mouse_release : 
+#+begin_src python
+    def on_mouse_release(self, x: float, y: float, button: int,
+                         modifiers: int):
+        """ Called when the user presses a mouse button. """
+        pass
+
+#+end_src
+*** def on_mouse_motion : 
+#+begin_src python
+    def on_mouse_motion(self, x: float, y: float, dx: float, dy: float):
+        """ User moves mouse """
+        pass
+#+end_src
+* описание

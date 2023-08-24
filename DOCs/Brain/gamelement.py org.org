@@ -1,0 +1,89 @@
+#+BRAIN_FRIENDS: index
+
+#+BRAIN_PARENTS: board.py%20org%20file
+
+
+* Command 
+** execute-src-block : 
+(save-excursion (progn (org-babel-goto-named-src-block "auto-tangle-block") (org-babel-execute-src-block)))
+(save-excursion (let () (org-babel-goto-named-src-block "auto-tangle-block") (org-babel-execute-src-block)))
+and then name the block you want to execute automatically:
+
+** find-file : 
+[[elisp:(org-babel-tangle)]]
+(find-file-other-frame "D:/Development/version-control/GitHub/my-python/pytts2d/SRC/gamelement.py")
+(org-babel-tangle)
+"D:\Development\version-control\GitHub\My-python\pytts2d\DOCs\Brain\gamelement.py org.org" 
+
+f D:\Development\version-control\GitHub\My-python\pytts2d\SRC\ D:\Development\version-control\GitHub\My-python\pytts2d\Exmpls\cardgame\
+
+D:\Development\version-control\GitHub\My-python\pytts2d\Exmpls\cardgame\cardgame.py 
+python -m D:\Development\version-control\GitHub\My-python\pytts2d\Exmpls\cardgame\cardgame.py 
+
+** auto-tangle-block : 
+#+NAME: auto-tangle-block
+#+begin_src emacs-lisp :results output silent :tangle no
+(setq org-src-preserve-indentation t)
+(untabify (point-min) (point-max))
+(save-buffer)
+(org-babel-tangle)
+(find-file-other-frame "D:/Development/version-control/GitHub/my-python/pytts2d/SRC/gamelement.py")
+;; (load "~/INI/hydra-cfg.el")
+;; (load "~/ELs/BuYn/reader.el")
+ #+end_src
+
+* Start Source
+:PROPERTIES:
+:header-args: :tangle  "D:/Development/version-control/GitHub/my-python/pytts2d/SRC/gamelement.py"
+:END:
+** start comment
+#+begin_src python 
+"""
+p2tts2d game.
+Game element class
+2023-08-24
+"""
+#+end_src
+** import
+#+begin_src python
+from gconstants import *
+import arcade
+
+
+#+end_src
+** class Gamelement() Window application class.
+*** class Gamelement : 
+#+begin_src python
+class Gamelement(arcade.Sprite):
+    """ Game element sprite """
+
+#+end_src
+*** def __init__
+#+begin_src python
+    def __init__(self, keeper, image_file_name, scale=1, hit_box_algorithm="None"):
+        """ Game element constructor """
+        # should be the default value for objects
+        # image_file_name = f":resources:images/cards/card{self.suit}{self.value}.png"
+        self.keeper = keeper
+        self.add_to_draw()
+        # Call the parent
+        super().__init__(image_file_name, scale, hit_box_algorithm=hit_box_algorithm)
+        
+#+end_src
+
+*** def add_to_draw : 
+        # self.keeper.elements_list.append(self)
+#+begin_src python
+    def add_to_draw(self):
+        self.keeper.add_to_draw(self)
+
+#+end_src
+*** def remove_from_draw : 
+        # self.keeper.elements_list.remove(self)
+#+begin_src python
+    def remove_from_draw(self):
+        self.keeper.remove_from_draw(self)
+        
+
+#+end_src
+* описание

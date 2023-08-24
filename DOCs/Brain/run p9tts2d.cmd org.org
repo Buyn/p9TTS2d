@@ -1,0 +1,57 @@
+#+BRAIN_PARENTS: p9tts2d%20app%20start
+
+
+* Start Source
+:PROPERTIES:
+:header-args: :tangle  "D:/Development/version-control/GitHub/my-python/pytts2d/p9tts2d.cmd"
+:END:
+** start comment
+#+begin_src shell
+rem run p2tts2d game.
+#+end_src
+** activate Virtual Environments : 
+On Windows, run:
+:tangle no 
+#+begin_src shell
+call p2tts2d-env\Scripts\activate.bat
+#+end_src
+
+#+RESULTS:
+
+** run game py 
+#+begin_src shell
+cd SRC
+python -m main
+#+end_src
+Вызывет ошибку
+python -m main.py
+поскольку он считает что модули не содержат расширения пай
+* описание
+
+* Comand 
+** execute-src-block : 
+(save-excursion (progn (org-babel-goto-named-src-block "auto-tangle-block") (org-babel-execute-src-block)))
+(progn (org-babel-goto-named-src-block "auto-tangle-block") (org-babel-execute-src-block))
+(let() (org-babel-goto-named-src-block "auto-tangle-block") (org-babel-execute-src-block))
+
+** find-file : 
+[[elisp:(org-babel-tangle)]]
+(find-file-other-frame "D:/Development/version-control/GitHub/my-python/pytts2d/SRC/main.py")
+(org-babel-tangle)
+"D:\Development\version-control\GitHub\My-python\pytts2d\DOCs\Brain\List of exempls.org" 
+
+f D:\Development\version-control\GitHub\My-python\pytts2d\Exmpls\cardgame\
+D:\Development\version-control\GitHub\My-python\pytts2d\Exmpls\cardgame\cardgame.py 
+python -m D:\Development\version-control\GitHub\My-python\pytts2d\Exmpls\cardgame\cardgame.py 
+
+** auto-tangle-block : 
+#+NAME: auto-tangle-block
+#+begin_src emacs-lisp :results output silent :tangle no
+(setq org-src-preserve-indentation t)
+(untabify (point-min) (point-max))
+(save-buffer)
+(org-babel-tangle)
+(find-file-other-frame "D:/Development/version-control/GitHub/my-python/pytts2d/p9tts2d.cmd")
+;; (load "~/INI/hydra-cfg.el")
+;; (load "~/ELs/BuYn/reader.el")
+ #+end_src

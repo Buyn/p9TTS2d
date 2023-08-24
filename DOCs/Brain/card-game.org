@@ -1,7 +1,13 @@
+#+BRAIN_FRIENDS: index
+
+#+BRAIN_PARENTS: List%20of%20exempls
+
 * Comand 
 [[elisp:(org-babel-tangle)]]
 (find-file-other-frame "D:/Development/version-control/GitHub/my-python/pytts2d/Exmpls/cardgame/cardgame.py")
 (org-babel-tangle)
+(find-file-other-frame "D:/Development/version-control/GitHub/my-python/pytts2d/Exmpls/cardgame/cardgame.py")
+"D:\Development\version-control\GitHub\My-python\pytts2d\DOCs\Brain\List of exempls.org" 
 
 f D:\Development\version-control\GitHub\My-python\pytts2d\Exmpls\cardgame\
 D:\Development\version-control\GitHub\My-python\pytts2d\Exmpls\cardgame\cardgame.py 
@@ -78,15 +84,16 @@ arcade.check_for_collision(self.held_cards[0], pile)
    и состояние проверяется спомошью свойства
     @property
     def is_face_down(self):
+* Docs 
+** link?
+https://api.arcade.academy/en/latest/tutorials/card_game/solitaire_11.html#solitaire-11
+** описание туториал 
+[[file:d:/Development/lisp/Dropbox/orgs/capture/Necroteuch/Org-Log/2023-08-07-pytts2d-sprint00.org::*text of tutorial][text of tutorial]]
 * Source
 :PROPERTIES:
 :header-args: :tangle  "D:/Development/version-control/GitHub/my-python/pytts2d/Exmpls/cardgame/cardgame.py"
 :END:
 ** ALL 
-*** link?
-https://api.arcade.academy/en/latest/tutorials/card_game/solitaire_11.html#solitaire-11
-*** описание туториал 
-[[file:d:/Development/lisp/Dropbox/orgs/capture/Necroteuch/Org-Log/2023-08-07-pytts2d-sprint00.org::*text of tuttorial][text of tuttorial]]
 *** Start comment
 #+begin_src python 
 """
@@ -719,7 +726,5 @@ def main():
 if __name__ == "__main__":
     main()
 #+end_src
-
-
 
 * 2023-08-08 

@@ -1,0 +1,79 @@
+#+BRAIN_FRIENDS: index
+
+#+BRAIN_CHILDREN: gconstants.py%20org%20file game.py%20org%20file board.py%20org%20file
+
+#+BRAIN_PARENTS: p9tts2d%20app%20start
+
+
+
+
+
+* Start Source
+:PROPERTIES:
+:header-args: :tangle  "D:/Development/version-control/GitHub/my-python/pytts2d/SRC/main.py"
+:END:
+** start comment
+#+begin_src python 
+"""
+p2tts2d game.
+"""
+#+end_src
+** imports 
+#+begin_src python
+import arcade
+import gconstants
+from game import Game
+from board import Board
+
+
+#+end_src
+
+import game
+import board
+
+** vars 
+#+begin_src python
+game = Game()
+boards = [Board(game)]
+
+
+#+end_src
+** def main(): : 
+#+begin_src python
+def main():
+    """ Main function """
+    boards[0].setup()
+    game.run()
+
+
+#+end_src
+** if __name__ == "__main__" : 
+#+begin_src python
+if __name__ == "__main__":
+    main()
+#+end_src
+* Comand 
+(save-excursion (progn (org-babel-goto-named-src-block "auto-tangle-block") (org-babel-execute-src-block)))
+
+[[elisp:(org-babel-tangle)]]
+(find-file-other-frame "D:/Development/version-control/GitHub/my-python/pytts2d/SRC/main.py")
+(org-babel-tangle)
+"D:\Development\version-control\GitHub\My-python\pytts2d\DOCs\Brain\List of exempls.org" 
+
+f D:\Development\version-control\GitHub\My-python\pytts2d\Exmpls\cardgame\
+D:\Development\version-control\GitHub\My-python\pytts2d\Exmpls\cardgame\cardgame.py 
+python -m D:\Development\version-control\GitHub\My-python\pytts2d\Exmpls\cardgame\cardgame.py 
+
+(setq org-src-preserve-indentation t)
+#+NAME: auto-tangle-block
+#+begin_src emacs-lisp :results output silent :tangle no
+(untabify (point-min) (point-max))
+(save-buffer)
+(org-babel-tangle)
+(find-file-other-frame "D:/Development/version-control/GitHub/my-python/pytts2d/SRC/main.py")
+;; (load "~/INI/hydra-cfg.el")
+;; (load "~/ELs/BuYn/reader.el")
+ #+end_src
+
+* описание
+

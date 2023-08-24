@@ -1,0 +1,61 @@
+#+BRAIN_FRIENDS: index
+
+#+BRAIN_PARENTS: main.py%20org%20file
+
+
+
+* Start Source
+:PROPERTIES:
+:header-args: :tangle  "D:/Development/version-control/GitHub/my-python/pytts2d/SRC/game.py"
+:END:
+** start comment
+#+begin_src python 
+"""
+p2tts2d game.
+"""
+#+end_src
+** import
+#+begin_src python
+import arcade
+import gconstants 
+
+
+#+end_src
+** class Game()Start application class.
+#+begin_src python
+class Game():
+    """ Start application class. """
+#+end_src
+*** def run - Start game loop function 
+#+begin_src python
+    def run(self):
+        """ Start game loop function """
+        arcade.run()
+#+end_src
+* описание
+
+* Command 
+[[elisp:(org-babel-tangle)]]
+(find-file-other-frame "D:/Development/version-control/GitHub/my-python/pytts2d/SRC/game.py")
+(org-babel-tangle)
+"D:\Development\version-control\GitHub\My-python\pytts2d\DOCs\Brain\List of exempls.org" 
+
+f D:\Development\version-control\GitHub\My-python\pytts2d\Exmpls\cardgame\
+D:\Development\version-control\GitHub\My-python\pytts2d\Exmpls\cardgame\cardgame.py 
+python -m D:\Development\version-control\GitHub\My-python\pytts2d\Exmpls\cardgame\cardgame.py 
+
+(let () (org-babel-goto-named-src-block "auto-tangle-block") (org-babel-execute-src-block))
+(progn (org-babel-goto-named-src-block "startblock") (org-babel-execute-src-block))
+and then name the block you want to execute automatically:
+
+#+NAME: auto-tangle-block
+#+begin_src emacs-lisp :results output silent :tangle no
+(setq org-src-preserve-indentation t)
+(untabify (point-min) (point-max))
+(save-buffer)
+(org-babel-tangle)
+(find-file-other-frame "D:/Development/version-control/GitHub/my-python/pytts2d/SRC/game.py")
+;; (load "~/INI/hydra-cfg.el")
+;; (load "~/ELs/BuYn/reader.el")
+ #+end_src
+

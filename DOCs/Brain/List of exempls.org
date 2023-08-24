@@ -1,0 +1,4 @@
+#+BRAIN_CHILDREN: card-game
+
+#+BRAIN_PARENTS: index
+
