@@ -1,37 +1,11 @@
+#+BRAIN_CHILDREN: MouseHandler.py%20control%20Class%20org InputHandler.py%20control%20Class%20org
+
 #+BRAIN_FRIENDS: index
 
 #+BRAIN_PARENTS: main.py%20org%20file
 
 
 
-* Start Source
-:PROPERTIES:
-:header-args: :tangle  "D:/Development/version-control/GitHub/my-python/pytts2d/SRC/game.py"
-:END:
-** start comment
-#+begin_src python 
-"""
-p2tts2d game.
-"""
-#+end_src
-** import
-#+begin_src python
-import arcade
-import gconstants 
-
-
-#+end_src
-** class Game()Start application class.
-#+begin_src python
-class Game():
-    """ Start application class. """
-#+end_src
-*** def run - Start game loop function 
-#+begin_src python
-    def run(self):
-        """ Start game loop function """
-        arcade.run()
-#+end_src
 * описание
 
 * Command 
@@ -59,3 +33,82 @@ and then name the block you want to execute automatically:
 ;; (load "~/ELs/BuYn/reader.el")
  #+end_src
 
+* Start Source
+:PROPERTIES:
+:header-args: :tangle  "D:/Development/version-control/GitHub/my-python/pytts2d/SRC/game.py"
+:END:
+** start comment
+#+begin_src python 
+"""
+p2tts2d game.
+"""
+#+end_src
+** import
+#+begin_src python
+import arcade
+from gconstants import *
+from InputHandler import InputHandler
+from MouseHandler import MouseHandler
+
+
+#+end_src
+** class Game()Start application class.
+*** class Game():
+#+begin_src python
+class Game():
+    """ Start application class. """
+#+end_src
+*** def __new__(cls):
+#+begin_src python
+    instance = None
+
+    def __new__(cls):
+        if not cls.instance:
+            cls.instance = super().__new__(cls)
+        return cls.instance
+#+end_src
+*** def __init__(self):
+        # self.input.add_cotroler(MouseHandler(self.input))
+#+begin_src python
+    def __init__(self):
+        self.input = InputHandler()
+        self.mouse = MouseHandler(self.input)
+        self.set_input()
+
+#+end_src
+
+        # self.control.register_handler(PullEvent, self.handle_pull)
+*** def set_input
+#+begin_src python
+    def set_input(self):
+        self.input.set_input("Left Click", "left_click")
+        self.input.set_input("Left Realise", "left_realise")
+        self.input.set_input("On Pull", "on_pull")
+        self.input.set_input("On Drop", "on_drop")
+        self.input.set_input("On Move", "on_move")
+
+
+#+end_src
+*** def run - Start game loop function 
+#+begin_src python
+    def run(self):
+        """ Start game loop function """
+        arcade.run()
+
+#+end_src
+** if __name__ == "__main__" : 
+#+begin_src python
+if __name__ == "__main__" :
+    print("testin Gamelement")
+    import game
+    game = game.Game()
+    import board
+    board = board.Board(game)
+    image_file_name = f":resources:images/cards/cardHeartsA.png"
+    # CARD_VALUES = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
+    # CARD_SUITS = ["Clubs", "Hearts", "Spades", "Diamonds"]
+    test = Gamelement(board, image_file_name)
+    assert(test != None)
+    # test.on_left_double_clik(1,2,3,4)
+
+#+end_src

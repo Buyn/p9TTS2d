@@ -77,4 +77,13 @@ class Card(Gamelement):
 #+end_src
         # super().__init__(self.image_file_name, scale, hit_box_algorithm="None")
 
+** if __name__ == "__main__" : 
+#+begin_src python
+if __name__ == "__main__":
+    print("testin MouseHandler")
+    test = MouseHandler("input")
+    assert(test.set_on_mouse_release(1,2,3,4))
+    test.on_left_double_clik(1,2,3,4)
+
+#+end_src
 * описание

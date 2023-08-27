@@ -10,6 +10,8 @@ SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 768
 SCREEN_TITLE = "p9TableTop 2D Board"
 
+BOARD_BACKGROUND_COLOR = arcade.color.AMAZON
+
 # Constants for sizing
 CARD_SCALE = 0.6
 
@@ -27,7 +29,11 @@ CARD_VERTICAL_OFFSET = CARD_HEIGHT * CARD_SCALE * 0.3
 # Face down image
 FACE_DOWN_IMAGE = ":resources:images/cards/cardBack_red2.png"
 
-BOARD_BACKGROUND_COLOR = arcade.color.AMAZON
+# MOUSE constants
+X   = 0
+Y   = 1
+DX  = 2
+DY  = 3
 
 # How big is the mat we'll place the card on?
 MAT_PERCENT_OVERSIZE = 1.25
@@ -53,3 +59,9 @@ MIDDLE_Y = TOP_Y - MAT_HEIGHT - MAT_HEIGHT * VERTICAL_MARGIN_PERCENT
 
 # How far apart each pile goes
 X_SPACING = MAT_WIDTH + MAT_WIDTH * HORIZONTAL_MARGIN_PERCENT
+
+if __name__ == "__main__":
+    print("testin Game constants")
+    test = X
+    # assert(test, 1)
+    # test.on_left_double_clik(1,2,3,4)

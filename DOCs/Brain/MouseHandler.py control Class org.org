@@ -1,0 +1,219 @@
+#+BRAIN_PARENTS: game.py%20org%20file
+
+
+* Command 
+** execute-src-block : 
+(save-excursion (progn (org-babel-goto-named-src-block "auto-tangle-block") (org-babel-execute-src-block)))
+(save-excursion (let () (org-babel-goto-named-src-block "auto-tangle-block") (org-babel-execute-src-block)))
+and then name the block you want to execute automatically:
+
+** find-file : 
+[[elisp:(org-babel-tangle)]]
+(find-file-other-frame "D:/Development/version-control/GitHub/my-python/pytts2d/SRC/MouseHandler.py")
+(org-babel-tangle)
+"D:\Development\version-control\GitHub\My-python\pytts2d\DOCs\Brain\MouseHandler.py control Class org.org" 
+
+
+** auto-tangle-block : 
+#+NAME: auto-tangle-block
+#+begin_src emacs-lisp :results output silent :tangle no
+(setq org-src-preserve-indentation t)
+(untabify (point-min) (point-max))
+(save-buffer)
+(org-babel-tangle)
+(find-file-other-frame "D:/Development/version-control/GitHub/my-python/pytts2d/SRC/MouseHandler.py")
+;; (load "~/INI/hydra-cfg.el")
+;; (load "~/ELs/BuYn/reader.el")
+ #+end_src
+
+* Start Source
+:PROPERTIES:
+:header-args: :tangle  "D:/Development/version-control/GitHub/my-python/pytts2d/SRC/MouseHandler.py"
+:END:
+** start comment
+#+begin_src python 
+"""
+p2tts2d game.
+Mouse Handler Game class
+2023-08-26
+"""
+
+#+end_src
+** import
+#+begin_src python
+from gconstants import *
+import arcade
+
+
+#+end_src
+** class MouseHandler()
+*** class MouseHandler : 
+#+begin_src python
+class MouseHandler():
+    """ Mouse Handler class for control of mouse and send result to InputHandler class """
+
+#+end_src
+*** def __init__
+#+begin_src python
+    def __init__(self, input_h):
+        """ MouseHandler constructor """
+        self.input = input_h
+        # List of elements sprits we are dragging with the mouse
+        self.held_elements = []
+        # Original location of cards we are dragging with the mouse in case
+        # they have to go back for reset on ESC press
+        self.held_elements_original_position = []
+        
+#+end_src
+        # super().__init__(self.image_file_name, scale, hit_box_algorithm="None")
+
+*** def set_on_mouse_press
+определяем на кого нажали
+если на стол до ретерн False
+тоесть нет спрайта и значит это стол 
+стол делае логику
+#+begin_src python
+    def set_on_mouse_press(self, x, y, button, key_modifiers, board):
+        """ Called when the user presses a mouse button, get here from Board class call. """
+        # Get list of elements we've clicked on
+        elements = arcade.get_sprites_at_point((x, y), board.elements_list)
+        # Have we clicked on a element?
+        if len(elements) > 0:
+            self.on_pull(x, y, button, key_modifiers, elements[-1])
+        else:
+            return False
+        
+#+end_src
+            # primary_card = cards[-1]
+            # All other cases, grab the face-up card we are clicking on
+            # self.held_elements = [primary_card]
+            # Save the position
+            # self.held_elements_original_position = [self.held_elements[0].position]
+            # Put on top in drawing order
+            # Might be a stack of cards, get the top one
+
+*** def set_on_mouse_release : 
+#+begin_src python
+    def set_on_mouse_release(self, x: float, y: float, button: int,
+                         key_modifiers: int, board):
+        """ Called when the user presses a mouse button, get here from Board class call. """
+        # If we don't have any elements, who cares
+        if len(self.held_elements) == 0:
+            return False
+        # We are no longer holding elements
+        # send each in list
+        for element in self.held_elements:
+            self.on_drop(x, y, button, key_modifiers, element)
+
+#+end_src
+        # self.input.handle_input("on drop", element ,args)
+        # self.held_elements = []
+*** TODO def set_on_mouse_motion : 
+#+begin_src python
+    def set_on_mouse_motion(self, x: float, y: float, dx: float, dy: float, board):
+        """ User moves mouse, get here from Board class call.  """
+        if len(self.held_elements) == 0:
+            return False
+        # If we are holding elements, move them with the mouse
+        for element in self.held_elements:
+            self.on_move(x, y, dx, dy, element)
+#+end_src
+**** TODO узкое место может сново прейдёт вернутся к варианту
+            element.center_x += dx
+            element.center_y += dy
+  Просто проверив возможность обектов к движению
+но если их уже подняли то их судьбу уже решает носительнь
+а не они
+*** def on_left_release : 
+#+begin_src python
+    def on_left_release(self, x: float, y: float, button: int,
+                         key_modifiers: int, element):
+        """ Called when the user release a left mouse button. """
+        self.input.handle_input("Left Relise", element, self,[x, y, button, key_modifiers])
+
+#+end_src
+*** def on_pull : 
+#+begin_src python
+    def on_pull(self, x: float, y: float, button: int,
+                         key_modifiers: int, element):
+        """ Called when the user presses a mouse button. """
+        self.input.handle_input("On Pull", element , self, [x, y, button, key_modifiers])
+
+#+end_src
+*** def on_drop : 
+#+begin_src python
+    def on_drop(self, x: float, y: float, button: int,
+                         key_modifiers: int, element):
+        """ Called when the user release a element """
+        self.input.handle_input("On Drop", element, self, [x, y, button, key_modifiers])
+
+#+end_src
+*** TODO def on_move : 
+#+begin_src python
+    def on_move(self, x: float, y: float, dx: float, dy: float, element):
+        """ Called when the user release a element """
+        self.input.handle_input("On Move", element, self, [x, y, dx, dy])
+
+#+end_src
+*** def setup : 
+#+begin_src python
+    def setup(self):
+        """ Called when the setup\reset the board. """
+        # List of elements sprits we are dragging with the mouse
+        self.held_elements = []
+        # Original location of elements we are dragging with the mouse in case
+        # they have to go back for reset on ESC press
+        self.held_elements_original_position = []
+
+#+end_src
+*** def add_to_held
+#+begin_src python
+    def add_to_held(self, element):
+        self.held_elements.append(element)
+        # Save the position
+        self.held_elements_original_position.append(element.position)
+        element.pull_to_top(element)
+#+end_src
+*** def remove_from_held
+#+begin_src python
+    def remove_from_held(self, element):
+        i = self.held_elements.index(element)
+        if not i ==-1: 
+            self.held_elements.pop(i)
+            # Save the position
+            self.held_elements_original_position.pop(i)
+#+end_src
+*** def on_left_double_clik : 
+#+begin_src python
+    def on_left_double_clik(self, x, y, button, key_modifiers, element):
+        """ Called when the user presses a mouse button fast twise. """
+        pass
+
+#+end_src
+*** def on_left_long_press : 
+#+begin_src python
+    def on_left_long_press(self, x, y, button, key_modifiers, element):
+        """ Called when the user presses a mouse button more then 3 sec. """
+        pass
+
+#+end_src
+** if __name__ == "__main__" : 
+#+begin_src python
+if __name__ == "__main__":
+    print("testin MouseHandler")
+    from game import Game
+    game = Game()
+    from board import Board
+    board = Board(game)
+    test = MouseHandler("input")
+    # element at these coordinates, because of this result is False
+    assert(not test.set_on_mouse_release(1,2,3,4,board))
+    assert(not test.set_on_mouse_press(1,2,3,4,board))
+    assert(not test.set_on_mouse_motion(1,2,3,4,board))
+    test.on_left_double_clik(1,2,3,4,"element")
+
+#+end_src
+* описание
+
+* 2023-08-26
+

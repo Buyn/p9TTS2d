@@ -60,32 +60,112 @@ class Gamelement(arcade.Sprite):
     """ Game element sprite """
 
 #+end_src
-*** def __init__
+*** TODO def __init__
+        # should be the default value for objects
+        # image_file_name = f":resources:images/cards/card{self.suit}{self.value}.png"
 #+begin_src python
     def __init__(self, keeper, image_file_name, scale=1, hit_box_algorithm="None"):
         """ Game element constructor """
-        # should be the default value for objects
-        # image_file_name = f":resources:images/cards/card{self.suit}{self.value}.png"
-        super().__init__(image_file_name, scale, hit_box_algorithm=hit_box_algorithm)
-        self.keeper = keeper
-        self.add_to_draw()
         # Call the parent
+        super().__init__(image_file_name, scale, hit_box_algorithm=hit_box_algorithm)
+        self.add_to_keeper(keeper)
+        self.pulled = False
+        self.events = {"on_drop":self.on_drop,
+                      "on_pull":self.on_pull,
+                      "on_move":self.on_move}
+        # self.events = {"On Drop":self.on_drop,
+        #               "On Pull":self.on_pull,
+        #               "On Move":self.on_move}
         
 #+end_src
 
-*** def add_to_draw : 
+*** def add_to_keeper : 
         # self.keeper.elements_list.append(self)
+        # self.keeper.add_element(self)
+        # self.keeper.add_to_draw(self)
 #+begin_src python
-    def add_to_draw(self):
-        self.keeper.add_to_draw(self)
+    def add_to_keeper(self, new_keeper):
+        self.keeper = new_keeper
+        new_keeper.add_element(self)
 
 #+end_src
-*** def remove_from_draw : 
-        # self.keeper.elements_list.remove(self)
+*** def on_move(self, event): 
 #+begin_src python
-    def remove_from_draw(self):
-        self.keeper.remove_from_draw(self)
-        
+    def on_move(self, enput, args):
+        if self.pulled:
+            # Perform action for the move event
+            self.center_x += args[DX]
+            self.center_y += args[DY]
+
+#+end_src
+
+*** def on_pull(self, event): : 
+#+begin_src python
+    def on_pull(self, enput, args):
+        if not self.pulled:
+            # Perform action for the pull event
+            self.pulled = True
+            enput.add_to_held(self)
+            self.keeper.pull_to_top(self)
+#+end_src
+            # print("Card has been pulled!")
+
+*** def on_drop(self, enput, args):
+#+begin_src python
+    def on_drop(self, enput, args):
+        if self.pulled:
+            # Perform action for the pull event
+            self.pulled = False
+            # Attributes for suit and value
+            enput.remove_from_held(self)
+#+end_src
+            # print("Card has been dropt!")
+
+*** def add_event(self, event, handler):
+#+begin_src python
+    def add_event(self, event, handler):
+        self.events[event] = handler
+#+end_src
+
+*** def remove_event(self, event):
+#+begin_src python
+    def remove_event(self, event):
+        if event in self.events:
+            self.events[event].pop(event)
+#+end_src
+
+*** pull_to_top
+#+begin_src python
+    def pull_to_top(self, element: arcade.Sprite):
+        """ Pull element sprite to top of rendering order (last to render, looks on-top) """
+        # Remove, and append to the end
+        self.keeper.pull_to_top(element)
+#+end_src
+
+*** move_to_keeper : 
+#+begin_src python
+    def move_to_keeper(self, new_keeper):
+        """ Move elevent from curent keeper
+to new one  """
+        self.keeper.remove_element(self)
+        self.keeper = new_keeper
+        new_keeper.add_element(self)
+#+end_src
+
+** if __name__ == "__main__" : 
+#+begin_src python
+if __name__ == "__main__":
+    print("testin Gamelement")
+    import game
+    game = game.Game()
+    import board
+    board = board.Board(game)
+    image_file_name = f":resources:images/cards/cardHeartsA.png"
+    # CARD_VALUES = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
+    # CARD_SUITS = ["Clubs", "Hearts", "Spades", "Diamonds"]
+    test = Gamelement(board, image_file_name)
+    assert(test != None)
+    # test.on_left_double_clik(1,2,3,4)
 
 #+end_src
 * описание

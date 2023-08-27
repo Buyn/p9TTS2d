@@ -1,0 +1,130 @@
+#+BRAIN_PARENTS: game.py%20org%20file
+
+
+InputHandler.py control Class org
+мышь или клава шёлт строку текста импут хендлеру
+для клавы это может выть кнопкп или двойная кнопка
+возможно шлётся кеу и набор аргументов(например модификаторы или смешение) ввиде листа или словаря
+для мыши это например "ташить левой кнопкой" или "двойной клик" + модификаторы
+для клавиатуры двное нажатие "АА" или самарное с движение мыши
+так можно реализовать чорды "s a" "a s j"
+и для мыши "Left Right" "s a Drag"
+* Command 
+** execute-src-block : 
+(save-excursion (progn (org-babel-goto-named-src-block "auto-tangle-block") (org-babel-execute-src-block)))
+(save-excursion (let () (org-babel-goto-named-src-block "auto-tangle-block") (org-babel-execute-src-block)))
+and then name the block you want to execute automatically:
+
+** find-file : 
+[[elisp:(org-babel-tangle)]]
+(find-file-other-frame "D:/Development/version-control/GitHub/my-python/pytts2d/SRC/InputHandler.py")
+(org-babel-tangle)
+"D:\Development\version-control\GitHub\My-python\pytts2d\DOCs\Brain\InputHandler.py control Class org.org" 
+
+
+** auto-tangle-block : 
+#+NAME: auto-tangle-block
+#+begin_src emacs-lisp :results output silent :tangle no
+(setq org-src-preserve-indentation t)
+(untabify (point-min) (point-max))
+(save-buffer)
+(org-babel-tangle)
+(find-file-other-frame "D:/Development/version-control/GitHub/my-python/pytts2d/SRC/InputHandler.py")
+;; (load "~/INI/hydra-cfg.el")
+;; (load "~/ELs/BuYn/reader.el")
+ #+end_src
+
+* Start Source
+:PROPERTIES:
+:header-args: :tangle  "D:/Development/version-control/GitHub/my-python/pytts2d/SRC/InputHandler.py"
+:END:
+** start comment
+#+begin_src python 
+"""
+p2tts2d game.
+Input Handler control Game class
+2023-08-26
+"""
+
+#+end_src
+** import
+# from gconstants import *
+# import arcade
+#+begin_src python
+
+
+#+end_src
+** class InputHandler()
+*** class InputHandler : 
+#+begin_src python
+class InputHandler():
+    """ Input Handler class for get control of mouse and send event to elements """
+
+#+end_src
+*** def __new__(cls):
+#+begin_src python
+    instance = None
+
+    def __new__(cls):
+        if not cls.instance:
+            cls.instance = super().__new__(cls)
+        return cls.instance
+#+end_src
+*** def __init__
+#+begin_src python
+    def __init__(self):
+        self.inputs = {}
+        
+#+end_src
+
+*** def set_input(self, key, event):
+#+begin_src python
+    def set_input(self, key, event):
+        self.inputs[key] = event
+#+end_src
+*** def handle_input(self, key, element, args=[]):
+sdfsdfsdag sdgsdfg 
+#+begin_src python
+    def handle_input(self, key, element, input, args=[]):
+        if key in self.inputs:
+            if self.inputs[key] in element.events:
+                element.events[self.inputs[key]](input, args)
+#+end_src
+
+** if __name__ == "__main__" : 
+#+begin_src python
+if __name__ == "__main__":
+    print("testin InputHandler")
+    test = InputHandler()
+    test.set_input("1","2")
+    import game
+    game = game.Game()
+    import board
+    board = board.Board(game)
+    image_file_name = f":resources:images/cards/cardHeartsA.png"
+    # CARD_VALUES = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
+    # CARD_SUITS = ["Clubs", "Hearts", "Spades", "Diamonds"]
+    import gamelement
+    self = gamelement.Gamelement(board, image_file_name)
+    events = {"On Drop":self.on_drop,
+                      "On Pull":self.on_pull,
+                      "On Move":self.on_move}
+    tinput = game.input
+    # tinput.handle_input("")
+    # self.on_pull(x, y, button, key_modifiers, elements[-1])
+    tinput.handle_input("On Pull", self , game.mouse, [1, 1, 1, 3])
+    tinput.handle_input("On Move", self , game.mouse, [1, 1, 1, 3])
+    # key = "On Pull"
+    # if key in input.inputs:
+    #     # print("handle_input key found",self.inputs[key], element.events )
+    #     if input.inputs[key] in element.events:
+    #         # print("handle_input send ", element.events[self.inputs[key]] )
+    #         element.events[self.inputs[key]](input, args)
+    # assert(test.set_input("1","2"), None)
+    # test.on_left_double_clik(1,2,3,4)
+
+#+end_src
+* описание
+
+
+* 2023-08-26 

@@ -84,6 +84,18 @@ CARD_VERTICAL_OFFSET = CARD_HEIGHT * CARD_SCALE * 0.3
 # Face down image
 FACE_DOWN_IMAGE = ":resources:images/cards/cardBack_red2.png"
 #+end_src
+** MOUSE_MOTION : 
+можно их сделать MOUSE_MOTION_X
+индексы для передоваемых аргументов в ивентах аркады
+если короткое не будет котить иззи не консистетности
+#+begin_src python
+# MOUSE constants
+X   = 0
+Y   = 1
+DX  = 2
+DY  = 3
+
+#+end_src
 ** mats constants
 #+begin_src python
 # How big is the mat we'll place the card on?
@@ -112,3 +124,13 @@ MIDDLE_Y = TOP_Y - MAT_HEIGHT - MAT_HEIGHT * VERTICAL_MARGIN_PERCENT
 X_SPACING = MAT_WIDTH + MAT_WIDTH * HORIZONTAL_MARGIN_PERCENT
 #+end_src
 
+
+** if __name__ == "__main__" : 
+#+begin_src python
+if __name__ == "__main__":
+    print("testin Game constants")
+    test = X
+    # assert(test, 1)
+    # test.on_left_double_clik(1,2,3,4)
+
+#+end_src
