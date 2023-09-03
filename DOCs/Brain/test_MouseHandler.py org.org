@@ -1,0 +1,170 @@
+#+BRAIN_PARENTS: MouseHandler.py%20control%20Class%20org
+
+
+* Command 
+** execute-src-block : 
+(save-excursion (progn (org-babel-goto-named-src-block "auto-tangle-block") (org-babel-execute-src-block)))
+(save-excursion (let () (org-babel-goto-named-src-block "auto-tangle-block") (org-babel-execute-src-block)))
+and then name the block you want to execute automatically:
+
+** find-file : 
+[[elisp:(org-babel-tangle)]]
+(find-file-other-frame "D:/Development/version-control/GitHub/my-python/pytts2d/SRC/test_mousehandler.py")
+(org-babel-tangle)
+"D:\Development\version-control\GitHub\My-python\pytts2d\DOCs\Brain\test_mousehandler.py org.org" 
+
+
+** auto-tangle-block : 
+#+NAME: auto-tangle-block
+#+begin_src emacs-lisp :results output silent :tangle no
+(setq org-src-preserve-indentation t)
+(untabify (point-min) (point-max))
+(save-buffer)
+(org-babel-tangle)
+(find-file-other-frame "D:/Development/version-control/GitHub/my-python/pytts2d/SRC/test_mousehandler.py")
+;; (load "~/INI/hydra-cfg.el")
+;; (load "~/ELs/BuYn/reader.el")
+ #+end_src
+
+* Start Source
+:PROPERTIES:
+:header-args: :tangle  "D:/Development/version-control/GitHub/my-python/pytts2d/SRC/test_mousehandler.py"
+:END:
+** start comment
+#+begin_src python 
+"""
+p2tts2d game.
+testing class 
+2023-09-01
+"""
+
+#+end_src
+** import
+#+begin_src python
+import unittest
+from mousehandler import *
+from unittest.mock import patch
+import time
+
+#+end_src
+** mocking
+#+begin_src python
+class Arcade ():
+  def __init__(self):
+      self.mesage = []
+      self.elements_list = []
+
+  def get_sprites_at_point(self, point, elements_list):
+      return ["element"]
+
+arcade = Arcade()
+
+#+end_src
+** class test_mousehandler()
+*** class unitTest : 
+#+begin_src python
+class Test(unittest.TestCase):
+
+#+end_src
+*** def setUpClass(self)
+#+begin_src python
+      @classmethod 
+      def setUpClass(self):
+          class Board():
+            def __init__(self):
+                self.mesage = []
+                self.elements_list = []
+
+            def handle_input(self, key, element, input, args=[]):
+                self.mesage.append(key)
+
+          class Input():
+            def __init__(self):
+                self.mesage = []
+
+            def handle_input(self, key, element, input, args=[]):
+                self.mesage.append(key)
+
+          self.board = Board() 
+          self.input = Input()
+          self.test = MouseHandler(self.input)
+
+#+end_src
+          import board, game
+          self.r_board = board.Board(game.Game()) 
+*** def tearDownClass(cls):
+#+begin_src python :tangle no 
+    @classmethod 
+    def tearDownClass(cls):
+        self.test = None
+
+#+end_src
+*** def test_init :
+#+begin_src python
+      def test_init(self):
+          self.assertEqual( self.test.button_name[LEFT_CLICK-1], "Left")
+          self.assertEqual( self.test.button_press_time[LEFT_CLICK-1], 0)
+
+#+end_src
+*** def test_left_click :
+#+begin_src python
+      @patch('arcade.get_sprites_at_point')  # Заменяем функцию 
+      def test_left_click(self, get_sprites_at_point):
+          get_sprites_at_point.return_value = ["elemet"]  # Задаем, что должно вернуться при вызове mock_function
+          self.assertEqual( self.test.button_press_time[LEFT_CLICK-1], 0)
+          self.test.set_on_mouse_press(0, 0, LEFT_CLICK, 0, self.board)
+          self.assertEqual( self.test.input.mesage.pop(), "On Left Pull")
+          self.assertNotEqual( self.test.button_press_time[LEFT_CLICK-1], 0)
+          time.sleep(0.0001)
+          self.assertNotEqual( self.test.button_press_time[LEFT_CLICK-1], 0)
+          self.test.held_elements=["element"]
+          self.test.set_on_mouse_release(0, 0, LEFT_CLICK, 0, self.board)
+          self.assertEqual( self.test.input.mesage.pop(), "Left Click")
+
+#+end_src
+          self.test.set_on_mouse_realise(0, 0, LEFT_CLICK, 0, self.r_board)
+     def test_card(self):
+*** def test_move :
+#+begin_src python
+      def test_move(self):
+          self.test.held_elements=["element"]
+          self.test.set_on_mouse_motion(0, 0, 0, 0, "element")
+          self.assertEqual( self.test.input.mesage.pop(), "On Move")
+
+#+end_src
+*** test_set_on_mouse_press
+*** test_on_pull
+*** test_set_on_mouse_release
+*** def test_on_drop
+#+begin_src python
+      @patch('arcade.get_sprites_at_point')  # Заменяем функцию 
+      def test_on_drop(self, get_sprites_at_point):
+          self.test.input.mesage = []
+          self.test.button_press_time[LEFT_CLICK-1] = time.time()
+          get_sprites_at_point.return_value = ["elemet"]  # Задаем, что должно вернуться при вызове mock_function
+          self.test.held_elements=["element"]
+          self.test.set_on_mouse_release(0, 0, LEFT_CLICK, 0, self.board)
+          # print(self.test.input.mesage)
+          self.assertEqual( len(self.test.input.mesage), 2)
+          self.assertEqual( self.test.input.mesage.pop(), "Left Click")
+          self.assertEqual( self.test.input.mesage.pop(), "On Left Drop")
+
+#+end_src
+** if __name__ == "__main__" : 
+ # ----------------------------------------------
+ # (compile " D:/Development/version-control/GitHub/Vadim/Tochil/main_test.py -k init")
+ # (compile " python -m unittest D:/Development/version-control/GitHub/Vadim/Tochil/main_test.py ")
+#+begin_src python
+if __name__ == "__main__":
+    unittest.main()
+
+#+end_src
+     #import sys;sys.argv = ['', 'Test.testName']
+     runner = unittest.TextTestRunner()
+     runner.run(suite_Init())
+ # * ----------------------------------------------:
+* описание
+
+
+
+* 2023-09-01 

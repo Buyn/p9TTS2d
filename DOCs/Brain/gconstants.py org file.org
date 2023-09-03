@@ -1,3 +1,5 @@
+#+BRAIN_CHILDREN: test_gconstants.py%20org
+
 #+BRAIN_FRIENDS: index
 
 #+BRAIN_PARENTS: main.py%20org%20file
@@ -76,25 +78,47 @@ CARD_HEIGHT = 190 * CARD_SCALE
 #+begin_src python
 # Card constants
 CARD_VALUES = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
+CARD_JOKER = f":resources:images/cards/cardJoker.png"
 CARD_SUITS = ["Clubs", "Hearts", "Spades", "Diamonds"]
 
 # If we fan out cards stacked on each other, how far apart to fan them?
 CARD_VERTICAL_OFFSET = CARD_HEIGHT * CARD_SCALE * 0.3
 
+# gamelement image
+GAMELEMENT_FACE_UP_IMAGE = ":resources:images/items/gemBlue.png"
+GAMELEMENT_FACE_DOWN_IMAGE = ":resources:images/items/gemRed.png"
 # Face down image
-FACE_DOWN_IMAGE = ":resources:images/cards/cardBack_red2.png"
+CARD_FACE_DOWN_IMAGE = ":resources:images/cards/cardBack_blue2.png"
 #+end_src
-** MOUSE_MOTION : 
+# CARD_FACE_DOWN_IMAGE = ":resources:images/cards/cardBack_green2.png"
+** MOUSE : 
+*** mouse motion constants
 можно их сделать MOUSE_MOTION_X
 индексы для передоваемых аргументов в ивентах аркады
 если короткое не будет котить иззи не консистетности
 #+begin_src python
-# MOUSE constants
+# mouse motion constants
 X   = 0
 Y   = 1
 DX  = 2
 DY  = 3
 
+#+end_src
+*** event.button integer values
+#+begin_src python
+# event.button integer values:
+LEFT_CLICK   = 1
+MIDDLE_CLICK = 2
+UNNOWN_MOUSE_CLICK = 3
+RIGHT_CLICK  = 4 
+SCROLL_UP    = 5
+SCROLL_DOWN  = 6
+#+end_src
+*** mouse setings 
+#+begin_src python
+# mouse setings 
+TIME_FOR_CLICK = 0.1
+TIME_FOR_LONG_PRESS = 2
 #+end_src
 ** mats constants
 #+begin_src python
@@ -130,7 +154,7 @@ X_SPACING = MAT_WIDTH + MAT_WIDTH * HORIZONTAL_MARGIN_PERCENT
 if __name__ == "__main__":
     print("testin Game constants")
     test = X
-    # assert(test, 1)
+    assert(test == 0)
     # test.on_left_double_clik(1,2,3,4)
 
 #+end_src

@@ -21,19 +21,35 @@ CARD_HEIGHT = 190 * CARD_SCALE
 
 # Card constants
 CARD_VALUES = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
+CARD_JOKER = f":resources:images/cards/cardJoker.png"
 CARD_SUITS = ["Clubs", "Hearts", "Spades", "Diamonds"]
 
 # If we fan out cards stacked on each other, how far apart to fan them?
 CARD_VERTICAL_OFFSET = CARD_HEIGHT * CARD_SCALE * 0.3
 
+# gamelement image
+GAMELEMENT_FACE_UP_IMAGE = ":resources:images/items/gemBlue.png"
+GAMELEMENT_FACE_DOWN_IMAGE = ":resources:images/items/gemRed.png"
 # Face down image
-FACE_DOWN_IMAGE = ":resources:images/cards/cardBack_red2.png"
+CARD_FACE_DOWN_IMAGE = ":resources:images/cards/cardBack_blue2.png"
 
-# MOUSE constants
+# mouse motion constants
 X   = 0
 Y   = 1
 DX  = 2
 DY  = 3
+
+# event.button integer values:
+LEFT_CLICK   = 1
+MIDDLE_CLICK = 2
+UNNOWN_MOUSE_CLICK = 3
+RIGHT_CLICK  = 4 
+SCROLL_UP    = 5
+SCROLL_DOWN  = 6
+
+# mouse setings 
+TIME_FOR_CLICK = 0.1
+TIME_FOR_LONG_PRESS = 2
 
 # How big is the mat we'll place the card on?
 MAT_PERCENT_OVERSIZE = 1.25
@@ -63,5 +79,5 @@ X_SPACING = MAT_WIDTH + MAT_WIDTH * HORIZONTAL_MARGIN_PERCENT
 if __name__ == "__main__":
     print("testin Game constants")
     test = X
-    # assert(test, 1)
+    assert(test == 0)
     # test.on_left_double_clik(1,2,3,4)

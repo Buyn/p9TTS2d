@@ -1,0 +1,113 @@
+#+BRAIN_PARENTS: game.py%20org%20file
+
+* Command 
+** execute-src-block : 
+(save-excursion (progn (org-babel-goto-named-src-block "auto-tangle-block") (org-babel-execute-src-block)))
+(save-excursion (let () (org-babel-goto-named-src-block "auto-tangle-block") (org-babel-execute-src-block)))
+and then name the block you want to execute automatically:
+
+** find-file : 
+[[elisp:(org-babel-tangle)]]
+(find-file-other-frame "D:/Development/version-control/GitHub/my-python/pytts2d/SRC/test_game.py")
+(org-babel-tangle)
+"D:\Development\version-control\GitHub\My-python\pytts2d\DOCs\Brain\test_game.py org.org" 
+
+
+** auto-tangle-block : 
+#+NAME: auto-tangle-block
+#+begin_src emacs-lisp :results output silent :tangle no
+(setq org-src-preserve-indentation t)
+(untabify (point-min) (point-max))
+(save-buffer)
+(org-babel-tangle)
+(find-file-other-frame "D:/Development/version-control/GitHub/my-python/pytts2d/SRC/test_game.py")
+;; (load "~/INI/hydra-cfg.el")
+;; (load "~/ELs/BuYn/reader.el")
+ #+end_src
+
+* Start Source
+:PROPERTIES:
+:header-args: :tangle  "D:/Development/version-control/GitHub/my-python/pytts2d/SRC/test_game.py"
+:END:
+** start comment
+#+begin_src python 
+"""
+p2tts2d game.
+testing class 
+2023-09-02
+"""
+
+#+end_src
+** import
+#+begin_src python
+import unittest
+from unittest.mock import patch
+from game import *
+
+
+#+end_src
+** mocking
+#+begin_src python
+class Card():
+
+    def __init__(self):
+        self.mesage = []
+        self.events = {"event_flip":self.flip_face,
+                      }
+
+    def flip_face(self, enput, args):
+        self.mesage.append("event_flip")
+
+#+end_src
+** class test_game()
+*** class unitTest : 
+#+begin_src python
+class Test(unittest.TestCase):
+
+#+end_src
+*** def setUpClass(self)
+#+begin_src python
+    @classmethod 
+    def setUpClass(self):
+        self.test = Game()
+        import board
+        self.board = board.Board(self.test) 
+        self.test_card = Card()
+
+#+end_src
+*** def tearDownClass(cls):
+#+begin_src python :tangle no 
+    @classmethod 
+    def tearDownClass(cls):
+        self.test = None
+
+#+end_src
+*** def test_init :  
+#+begin_src python
+    def test_init(self):
+        self.assertEqual( self.test.input.inputs["Left Click"], "event_flip")
+
+#+end_src
+*** def test_flip : 
+#+begin_src python
+    def test_left_click(self):
+        self.test.mouse.on_click(0, 0, LEFT_CLICK, 0, self.test_card)
+        self.assertEqual( self.test_card.mesage.pop(), "event_flip")
+
+
+#+end_src
+** if __name__ == "__main__" : 
+ # ----------------------------------------------
+ # (compile " D:/Development/version-control/GitHub/Vadim/Tochil/main_test.py -k init")
+ # (compile " python -m unittest D:/Development/version-control/GitHub/Vadim/Tochil/main_test.py ")
+#+begin_src python
+if __name__ == "__main__":
+    unittest.main()
+
+#+end_src
+     #import sys;sys.argv = ['', 'Test.testName']
+     runner = unittest.TextTestRunner()
+     runner.run(suite_Init())
+ # * ----------------------------------------------:
+* описание
+* 2023-09-02

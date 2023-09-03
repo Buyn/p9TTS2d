@@ -6,6 +6,7 @@ Mouse Handler Game class
 
 from gconstants import *
 import arcade
+from time import time
 
 class MouseHandler():
     """ Mouse Handler class for control of mouse and send result to InputHandler class """
@@ -18,9 +19,22 @@ class MouseHandler():
         # Original location of cards we are dragging with the mouse in case
         # they have to go back for reset on ESC press
         self.held_elements_original_position = []
+        self.button_name = [  "Left",
+                              "Middle",
+                              "Unknown",
+                              "Right",
+                              "Scroll Up",
+                              "Scroll Down"]
+        self.button_press_time = [  0,
+                                    0,
+                                    0,
+                                    0,
+                                    0,
+                                    0]
 
     def set_on_mouse_press(self, x, y, button, key_modifiers, board):
         """ Called when the user presses a mouse button, get here from Board class call. """
+        self.button_press_time[button-1] = time()
         # Get list of elements we've clicked on
         elements = arcade.get_sprites_at_point((x, y), board.elements_list)
         # Have we clicked on a element?
@@ -39,6 +53,8 @@ class MouseHandler():
         # send each in list
         for element in self.held_elements:
             self.on_drop(x, y, button, key_modifiers, element)
+            if time() - self.button_press_time[button-1] < TIME_FOR_CLICK:
+                self.on_click(x, y, button, key_modifiers, element)
 
     def set_on_mouse_motion(self, x: float, y: float, dx: float, dy: float, board):
         """ User moves mouse, get here from Board class call.  """
@@ -53,15 +69,20 @@ class MouseHandler():
         """ Called when the user release a left mouse button. """
         self.input.handle_input("Left Relise", element, self,[x, y, button, key_modifiers])
 
+    def on_click(self, x: float, y: float, button: int,
+                         key_modifiers: int, element):
+        """ Called when the user fast press and release a left mouse button. """
+        self.input.handle_input(self.button_name[button-1] + " Click", element, self,[x, y, button, key_modifiers])
+
     def on_pull(self, x: float, y: float, button: int,
                          key_modifiers: int, element):
         """ Called when the user presses a mouse button. """
-        self.input.handle_input("On Pull", element , self, [x, y, button, key_modifiers])
+        self.input.handle_input("On "+ self.button_name[button-1] + " Pull", element , self, [x, y, button, key_modifiers])
 
     def on_drop(self, x: float, y: float, button: int,
                          key_modifiers: int, element):
         """ Called when the user release a element """
-        self.input.handle_input("On Drop", element, self, [x, y, button, key_modifiers])
+        self.input.handle_input("On "+ self.button_name[button-1] +" Drop", element, self, [x, y, button, key_modifiers])
 
     def on_move(self, x: float, y: float, dx: float, dy: float, element):
         """ Called when the user release a element """

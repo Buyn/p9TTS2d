@@ -10,18 +10,47 @@ import arcade
 class Gamelement(arcade.Sprite):
     """ Game element sprite """
 
-    def __init__(self, keeper, image_file_name, scale=1, hit_box_algorithm="None"):
+    def __init__(self, keeper,
+                 image_file_name_face_up = None,
+                 image_file_name_face_down = None,
+                 scale=1, hit_box_algorithm="None"):
         """ Game element constructor """
+        if not image_file_name_face_up:
+            image_file_name_face_up = GAMELEMENT_FACE_UP_IMAGE
+        if not image_file_name_face_down:
+            image_file_name_face_down = GAMELEMENT_FACE_DOWN_IMAGE
+        self.image_file_name_face_down = image_file_name_face_down
+        self.image_file_name_face_up  = image_file_name_face_up
+        self.is_face_up = True
         # Call the parent
-        super().__init__(image_file_name, scale, hit_box_algorithm=hit_box_algorithm)
+        super().__init__(self.image_file_name_face_up, scale, hit_box_algorithm=hit_box_algorithm)
         self.add_to_keeper(keeper)
         self.pulled = False
-        self.events = {"on_drop":self.on_drop,
-                      "on_pull":self.on_pull,
-                      "on_move":self.on_move}
-        # self.events = {"On Drop":self.on_drop,
-        #               "On Pull":self.on_pull,
-        #               "On Move":self.on_move}
+        self.events = {"event_on_drop":self.on_drop,
+                      "event_on_pull":self.on_pull,
+                      "event_on_move":self.on_move}
+
+    @property
+    def is_face_down(self):
+        """ Is this element ard face down? """
+        return not self.is_face_up
+
+    def face_down(self):
+        """ Turn element face-down """
+        self.texture = arcade.load_texture(self.image_file_name_face_down)
+        self.is_face_up = False
+
+    def face_up(self):
+        """ Turn element face-up """
+        self.texture = arcade.load_texture(self.image_file_name_face_up)
+        self.is_face_up = True
+
+    def face_flip(self, enput, args):
+        """ Turn element to other side """
+        if self.is_face_up:
+            self.face_down()
+        else:
+            self.face_up()
 
     def add_to_keeper(self, new_keeper):
         self.keeper = new_keeper

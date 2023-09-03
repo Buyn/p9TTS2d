@@ -1,4 +1,4 @@
-#+BRAIN_CHILDREN: MouseHandler.py%20control%20Class%20org InputHandler.py%20control%20Class%20org
+#+BRAIN_CHILDREN: MouseHandler.py%20control%20Class%20org InputHandler.py%20control%20Class%20org test_game.py%20org
 
 #+BRAIN_FRIENDS: index
 
@@ -47,8 +47,8 @@ p2tts2d game.
 #+begin_src python
 import arcade
 from gconstants import *
-from InputHandler import InputHandler
-from MouseHandler import MouseHandler
+from inputhandler import InputHandler
+from mousehandler import MouseHandler
 
 
 #+end_src
@@ -81,14 +81,26 @@ class Game():
 *** def set_input
 #+begin_src python
     def set_input(self):
-        self.input.set_input("Left Click", "left_click")
-        self.input.set_input("Left Realise", "left_realise")
-        self.input.set_input("On Pull", "on_pull")
-        self.input.set_input("On Drop", "on_drop")
-        self.input.set_input("On Move", "on_move")
+        self.input.set_input("Left Click", "event_flip")
+        self.input.set_input("Middle Click", "event_middle_click")
+        self.input.set_input("Right Click", "event_right_click")
+        self.input.set_input("Left Realise", "event_left_realise")
+        self.input.set_input("Left Realise", "event_left_realise")
+        self.input.set_input("Left Realise", "event_left_realise")
+        self.input.set_input("On Left Pull", "event_left_on_pull")
+        self.input.set_input("On Middle Pull", "event_middle_on_pull")
+        self.input.set_input("On Right Pull", "event_right_on_pull")
+        self.input.set_input("On Left Drop", "event_on_drop")
+        self.input.set_input("On Move", "event_on_move")
 
 
 #+end_src
+        self.input.set_input("Left Click", "event_flip")
+        self.input.set_input("Left Realise", "event_left_realise")
+        self.input.set_input("On Left Pull", "event_on_pull")
+        self.input.set_input("On Left Drop", "event_on_drop")
+        self.input.set_input("On Move", "event_on_move")
+
 *** def run - Start game loop function 
 #+begin_src python
     def run(self):

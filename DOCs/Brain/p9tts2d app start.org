@@ -1,4 +1,4 @@
-#+BRAIN_CHILDREN: main.py%20org%20file run%20p9tts2d.cmd%20org
+#+BRAIN_CHILDREN: main.py%20org%20file run%20p9tts2d.cmd%20org run_all_tests.cmd%20org
 
 #+BRAIN_PARENTS: index
 

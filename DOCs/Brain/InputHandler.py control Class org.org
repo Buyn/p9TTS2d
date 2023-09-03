@@ -36,7 +36,7 @@ and then name the block you want to execute automatically:
 
 * Start Source
 :PROPERTIES:
-:header-args: :tangle  "D:/Development/version-control/GitHub/my-python/pytts2d/SRC/InputHandler.py"
+:header-args: :tangle  "D:/Development/version-control/GitHub/my-python/pytts2d/SRC/inputhandler.py"
 :END:
 ** start comment
 #+begin_src python 
@@ -83,7 +83,6 @@ class InputHandler():
         self.inputs[key] = event
 #+end_src
 *** def handle_input(self, key, element, args=[]):
-sdfsdfsdag sdgsdfg 
 #+begin_src python
     def handle_input(self, key, element, input, args=[]):
         if key in self.inputs:

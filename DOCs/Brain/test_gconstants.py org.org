@@ -1,0 +1,81 @@
+#+BRAIN_PARENTS: gconstants.py%20org%20file
+
+
+* Command 
+** execute-src-block : 
+(save-excursion (progn (org-babel-goto-named-src-block "auto-tangle-block") (org-babel-execute-src-block)))
+(save-excursion (let () (org-babel-goto-named-src-block "auto-tangle-block") (org-babel-execute-src-block)))
+and then name the block you want to execute automatically:
+
+** find-file : 
+[[elisp:(org-babel-tangle)]]
+(find-file-other-frame "D:/Development/version-control/GitHub/my-python/pytts2d/SRC/test_gconstants.py")
+(org-babel-tangle)
+"D:\Development\version-control\GitHub\My-python\pytts2d\DOCs\Brain\test_gconstants.py org.org" 
+
+
+** auto-tangle-block : 
+#+NAME: auto-tangle-block
+#+begin_src emacs-lisp :results output silent :tangle no
+(setq org-src-preserve-indentation t)
+(untabify (point-min) (point-max))
+(save-buffer)
+(org-babel-tangle)
+(find-file-other-frame "D:/Development/version-control/GitHub/my-python/pytts2d/SRC/test_gconstants.py")
+;; (load "~/INI/hydra-cfg.el")
+;; (load "~/ELs/BuYn/reader.el")
+ #+end_src
+
+* Start Source
+:PROPERTIES:
+:header-args: :tangle  "D:/Development/version-control/GitHub/my-python/pytts2d/SRC/test_gconstants.py"
+:END:
+** start comment
+#+begin_src python 
+"""
+p2tts2d game.
+testing setings 
+2023-08-31
+"""
+
+#+end_src
+** import
+#+begin_src python
+import unittest
+from gconstants import *
+
+
+#+end_src
+** class test_gconstants()
+*** class test_gconstants : 
+#+begin_src python
+class Test(unittest.TestCase):
+
+#+end_src
+*** def test_newText
+#+begin_src python
+    def test_newText(self):
+        test = CARD_SUITS
+        self.assertIsNotNone( test )
+        self.assertEqual( test[0], "Clubs")
+        self.assertEqual( test[3], "Diamonds")
+        test = TIME_FOR_CLICK
+
+#+end_src
+        self.assertEqual( test, 1000)
+** Test runer if __name__ == "__main__" : 
+ # ----------------------------------------------
+ # (compile " D:/Development/version-control/GitHub/Vadim/Tochil/main_test.py -k init")
+ # (compile " python -m unittest D:/Development/version-control/GitHub/Vadim/Tochil/main_test.py ")
+#+begin_src python
+if __name__ == "__main__":
+    unittest.main()
+#+end_src
+     #import sys;sys.argv = ['', 'Test.testName']
+     runner = unittest.TextTestRunner()
+     runner.run(suite_Init())
+ # * ----------------------------------------------:
+
+* описание
+
+* 2023-08-31 

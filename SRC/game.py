@@ -4,8 +4,8 @@ p2tts2d game.
 
 import arcade
 from gconstants import *
-from InputHandler import InputHandler
-from MouseHandler import MouseHandler
+from inputhandler import InputHandler
+from mousehandler import MouseHandler
 
 class Game():
     """ Start application class. """
@@ -23,19 +23,20 @@ class Game():
         self.set_input()
 
     def set_input(self):
-        self.input.set_input("Left Click", "left_click")
-        self.input.set_input("Left Realise", "left_realise")
-        self.input.set_input("On Pull", "on_pull")
-        self.input.set_input("On Drop", "on_drop")
-        self.input.set_input("On Move", "on_move")
+        self.input.set_input("Left Click", "event_flip")
+        self.input.set_input("Left Realise", "event_left_realise")
+        self.input.set_input("On Left Pull", "event_on_pull")
+        self.input.set_input("On Left Drop", "event_on_drop")
+        self.input.set_input("On Move", "event_on_move")
 
     def run(self):
         """ Start game loop function """
         arcade.run()
+
 if __name__ == "__main__" :
     print("testin Gamelement")
-    # import game
-    game = Game()
+    import game
+    game = game.Game()
     import board
     board = board.Board(game)
     image_file_name = f":resources:images/cards/cardHeartsA.png"

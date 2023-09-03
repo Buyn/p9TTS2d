@@ -25,15 +25,19 @@ class Board(arcade.Window):
         # reset heldet elements
         self.mouse.setup()
         # Create every card
-        count=0
+        count=1
+        Card(self,
+            resources_name=CARD_JOKER,
+            x=START_X+count,
+            y=BOTTOM_Y+count)
         for card_suit in CARD_SUITS:
             for card_value in CARD_VALUES:
                 count +=1
-                card = Card(self,
-                            card_suit,
-                            card_value,
-                            x=START_X+count,
-                            y=BOTTOM_Y+count)
+                Card(self,
+                    card_suit,
+                    card_value,
+                    x=START_X+count,
+                    y=BOTTOM_Y+count)
 
     def on_draw(self):
         """ Render the screen. """
